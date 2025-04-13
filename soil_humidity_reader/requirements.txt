@@ -1,0 +1,5 @@
+adafruit-blinka
+adafruit-circuitpython-mcp3xxx
+prometheus_client
+RPi.GPIO
+lgpio

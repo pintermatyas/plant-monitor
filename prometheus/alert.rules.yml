@@ -1,0 +1,11 @@
+groups:
+  - name: soil_moisture_alerts
+    rules:
+      - alert: LowSoilMoisture
+        expr: soil_humidity_percentage < 40
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Soil Moisture is low for Date Palm"
+          description: "Soil Moisture is below 40% (value: {{ $value }})"

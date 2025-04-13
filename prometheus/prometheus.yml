@@ -1,0 +1,14 @@
+global:
+  scrape_interval: 1s
+rule_files:
+  - 'alert.rules.yml'
+scrape_configs:
+  - job_name: 'air_monitoring_service'
+    static_configs:
+      - targets: ['air_monitoring_service:8001']
+  - job_name: 'soil_humidity_reader'
+    static_configs:
+      - targets: ['soil_humidity_reader:8000']
+  - job_name: 'weather_reader'
+    static_configs:
+      - targets: ['weather_reader:8002']

@@ -1,0 +1,49 @@
+services:
+  soil_humidity_reader:
+    build:
+      context: ./soil_humidity_reader
+    container_name: soil_humidity_reader
+    privileged: true
+    ports:
+      - "8000:8000"
+
+  air_monitoring_service:
+    build:
+      context: ./air_monitoring_service
+    container_name: air_monitoring_service
+    privileged: true
+    ports:
+      - "8001:8001"
+
+  weather_reader:
+    build:
+      context: ./weather_reader
+    container_name: weather_reader
+    ports:
+      - "8002:8002"
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alert.rules.yml:/etc/prometheus/alert.rules.yml
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "9000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    environment:
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=grafana-pyroscope-app
+
+volumes:
+  grafana-data:
+  prometheus-data:
