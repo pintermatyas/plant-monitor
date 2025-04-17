@@ -6,6 +6,7 @@ services:
     privileged: true
     ports:
       - "8000:8000"
+    restart: unless-stopped
 
   air_monitoring_service:
     build:
@@ -14,6 +15,7 @@ services:
     privileged: true
     ports:
       - "8001:8001"
+    restart: unless-stopped
 
   weather_reader:
     build:
@@ -21,6 +23,7 @@ services:
     container_name: weather_reader
     ports:
       - "8002:8002"
+    restart: unless-stopped
 
   prometheus:
     image: prom/prometheus
@@ -31,6 +34,7 @@ services:
       - prometheus-data:/prometheus
     ports:
       - "9090:9090"
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana
@@ -43,6 +47,7 @@ services:
       - prometheus
     environment:
       - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=grafana-pyroscope-app
+    restart: unless-stopped
 
 volumes:
   grafana-data:
