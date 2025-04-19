@@ -12,10 +12,13 @@ device = adafruit_dht.DHT22(board.D4)
 
 def read_values():
     while True:
-        humidity, temperature = device.humidity, device.temperature
-        print("Temp:{:.1f} C    Humidity: {}%".format(temperature, humidity))
-        air_humidity.set(humidity)
-        air_temperature.set(temperature)
+        try:
+            humidity, temperature = device.humidity, device.temperature
+            print("Temp:{:.1f} C    Humidity: {}%".format(temperature, humidity))
+            air_humidity.set(humidity)
+            air_temperature.set(temperature)
+        except:
+            print("Something went wrong")
         sleep(5)
 
 if __name__ == "__main__":
