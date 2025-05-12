@@ -19,7 +19,7 @@ min_saturation_voltage = 3.05 # Sensor completely dry
 
 def read_percentage():
     voltage = chan.voltage
-    saturation_percentage = (voltage - max_saturation_voltage) * 100 / (min_saturation_voltage/max_saturation_voltage)
+    saturation_percentage = (voltage - max_saturation_voltage) * 100 / (min_saturation_voltage-max_saturation_voltage)
     percentage = 100 - saturation_percentage
     print(percentage)
     percentage_gauge.set(percentage)
